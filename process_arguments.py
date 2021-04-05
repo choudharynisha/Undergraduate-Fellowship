@@ -21,6 +21,8 @@ def parse_args():
         default = None, metavar = "")
     parser.add_argument("-o", "--output", type = str, help = "the name of the output file",\
         default = None, metavar = "")
+    parser.add_argument("-v", "--verb", type = str, help = "the main verb being looked at",\
+        default = None, metavar = "")
     arguments = parser.parse_args()
     
     if(arguments.input == None):
@@ -35,13 +37,19 @@ def parse_args():
         parser.print_help()
         sys.exit()
     
+    if(arguments.verb == None):
+        # the verb wasn't specified
+        print("Please enter the main verb to be looked at.")
+        parser.print_help()
+        sys.exit()
+    
     if(arguments.input == arguments.output):
         print("Please specify a different name and path for the input and the ouput.")
         parser.print_help()
         sys.exit()
     
-    return arguments.input, arguments.output
+    return arguments.input, arguments.output, arguments.verb
 
 if __name__ == "__main__":
-    input, output = parse_args()
-    print(input, output)
+    input, output, verb = parse_args()
+    print(input, output, verb)
