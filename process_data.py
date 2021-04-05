@@ -20,7 +20,7 @@ def ignore_stop_words(trigrams_and_frequency):
     filtered_trigrams = []
     
     for line in trigrams_and_frequency:
-        tokens = line.split()
+        tokens = line.split() # default = splity by spaces
         
         if tokens[2] not in set(stopwords.words("english")):
             # the third token in the trigram is not a stop word
@@ -42,6 +42,8 @@ def read_in_data(filename, verb):
     lines = []
     
     with open(filename) as file:
+        # the first line with the specified verb in the middle of the trigram is the fifth line of
+        # the file
         next_line = file.readline()
         next_line = file.readline()
         next_line = file.readline()
@@ -55,6 +57,7 @@ def read_in_data(filename, verb):
             tokens = next_line.split()
             
             if(tokens[1] != verb):
+                # terminate / break out of the loop once the verb is no longer the specified verb
                 break
     
     file.close()
