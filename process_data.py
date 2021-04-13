@@ -6,6 +6,7 @@ Date   – Sunday, April 4, 2021
 
 import identify_arguments
 from nltk.corpus import stopwords
+from operator import itemgetter
 
 def ignore_stop_words(trigrams_and_frequency):
     """Filters out the trigrams that have a stop word in the third token of the trigram
@@ -63,6 +64,24 @@ def read_in_data(filename, verb):
     file.close()
     return lines
 
+def sort(trigrams_and_frequency):
+    split = []
+    ordered = []
+    
+    for line in trigrams_and_frequency:
+        tokens = line.split()
+        trigram = tokens[0] + " " + tokens[1] + " " + tokens[2]
+        row = [trigram, tokens[3]]
+        split.append(row)
+    
+    split.sort(key = lambda x: x[1])
+    
+    for row in split:
+        line = row[0] + " " + row[1] + "\n"
+        ordered.append(line)
+    
+    return ordered
+
 def write_to_file(filename, trigrams_and_frequency):
     """Takes the filtered list of trigrams and their corresponding frequencies and writes it to a 
     new text file
@@ -86,4 +105,6 @@ if __name__ == "__main__":
     print(len(trigrams_and_frequency))
     filtered_trigrams = ignore_stop_words(trigrams_and_frequency)
     print(len(filtered_trigrams))
-    write_to_file(output, filtered_trigrams)
+    sorted = sort(filtered_trigrams)
+    print(len(sorted))
+    write_to_file(output, sorted)
