@@ -65,6 +65,14 @@ def read_in_data(filename, verb):
     return lines
 
 def sort(trigrams_and_frequency):
+    """Sorts by frequency
+    
+    Args:
+        trigrams_and_frequency (list): Strings with the trigrams + its corresponding frequency
+    
+    Returns:
+        list: The trigrams sorted by frequency
+    """
     split = []
     ordered = []
     
